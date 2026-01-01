@@ -88,3 +88,17 @@ All users inherit from a **common abstract `User` class**.
 * UML (StarUML)
 
 ---
+
+## Diagrams
+
+### Use Case Diagram
+
+![use case diagram](/UMLs/usecase.png)
+
+### Class Diagram
+
+![Class Diagram](/UMLs/Class.png)
+
+### ER Diagram
+
+![Entity Relationship Diagram](/UMLs/erd.png)
