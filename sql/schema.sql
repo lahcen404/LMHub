@@ -47,13 +47,14 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(255) NOT NULL UNIQUE
 );
 
-drop table categories;
+-- drop table categories;
 
 -- table reports
 create table reports(
 id INT AUTO_INCREMENT PRIMARY KEY,
 reason TEXT NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+status ENUM('PENDING', 'RESOLVED', 'DISMISSED') DEFAULT 'PENDING',
 reporter_id INT NOT NULL,
 comment_id INT NOT NULL,
 FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE,
