@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+        
+        :root {
+            --bg-dark: #030303;
+            --card-bg: #0a0a0a;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .syne {
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* --- Animations --- */
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heartPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes commentWiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .animate-reveal {
+            animation: revealUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+        }
+
+        /* --- UI Elements --- */
+        .glass-nav {
+            background: rgba(3, 3, 3, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        /* Animated Navbar Links */
+        .nav-link {
+            color: #94a3b8;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15);
+        }
+
+        /* --- Animated Icons Logic --- */
+        .interaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .like-btn:hover { color: #ef4444; }
+        .like-btn:hover i { 
+            animation: heartPulse 0.5s ease-in-out;
+            font-weight: 900; 
+        }
+
+        .comment-btn:hover { color: var(--accent-blue); }
+        .comment-btn:hover i { 
+            animation: commentWiggle 0.4s ease-in-out;
+        }
+
+        .image-zoom-container {
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .image-zoom {
+            transition: transform 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .article-card:hover .image-zoom {
+            transform: scale(1.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-btn {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-btn:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .read-article-btn {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .read-article-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .article-card:hover .read-article-btn::after {
+            width: 100%;
+        }
