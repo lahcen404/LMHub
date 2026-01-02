@@ -86,7 +86,7 @@
             <div class="mt-12 text-center">
                 <p class="text-slate-500 text-xs font-medium">
                     Need a creative identity? 
-                    <a href="#" class="text-blue-400 font-bold hover:text-purple-400 transition-colors ml-1 underline underline-offset-4 decoration-blue-500/30">Register</a>
+                    <a href="/register" class="text-blue-400 font-bold hover:text-purple-400 transition-colors ml-1 underline underline-offset-4 decoration-blue-500/30">Register</a>
                 </p>
             </div>
         </div>

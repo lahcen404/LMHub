@@ -8,4 +8,8 @@ class AuthController extends Controller{
     public function login(){
         $this->view('auth/login',['login'=>'Login | LMHub']);
     }
+
+     public function register(){
+        $this->view('auth/register',['Register'=>'Register | LMHub']);
+    }
 }
