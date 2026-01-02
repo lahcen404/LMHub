@@ -11,4 +11,5 @@ $connection = $dbConnection->connectDB();
 $router = new Router();
 $router->get('/', "HomeController@index");
 $router->get('/admin/dashboard', "AdminController@index");
+$router->get('/login','AuthController@login');
 $router->dispatch();
