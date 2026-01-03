@@ -405,3 +405,12 @@
             background: rgba(255, 255, 255, 0.05);
             border-color: var(--accent-blue);
         }
+
+        /* reports */
+
+           .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+        }
