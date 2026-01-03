@@ -12,10 +12,10 @@
             
             <div class="flex items-center gap-4">
                 <!-- Add Category Button -->
-                <button class="btn-premium flex items-center gap-2 px-6 py-3 rounded-2xl text-white text-xs font-bold tracking-widest uppercase">
+                <a href="/admin/add-category" class="btn-premium flex items-center gap-2 px-6 py-3 rounded-2xl text-white text-xs font-bold tracking-widest uppercase">
                     <i class="fas fa-plus"></i>
                     Add Category
-                </button>
+                </a>
                 
                 <div class="relative">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>

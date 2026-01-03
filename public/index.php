@@ -11,6 +11,7 @@ use app\core\Router;
 $router = new Router();
 $router->get('/', "HomeController@index");
 $router->get('/admin/dashboard', "AdminController@index");
+$router->get('/admin/add-category', "AdminController@addCategory");
 $router->get('/login','AuthController@login');
 $router->get('/register','AuthController@register');
 $router->dispatch();

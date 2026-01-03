@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMHub - Discovery & Insights</title>
+    <title>LMHub - <?= htmlspecialchars($title) ?> </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -32,10 +32,10 @@
 
                 <!-- Auth -->
                 <div class="flex items-center space-x-6">
-                    <a href="#" class="text-sm font-bold text-gray-400 hover:text-white transition">Login</a>
-                    <button class="gradient-btn text-white px-6 py-2 rounded-full text-xs font-bold active:scale-95 shadow-lg">
+                    <a href="/login" class="text-sm font-bold text-gray-400 hover:text-white transition">Login</a>
+                    <a href="/register" class="gradient-btn text-white px-6 py-2 rounded-full text-xs font-bold active:scale-95 shadow-lg">
                         Register
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
