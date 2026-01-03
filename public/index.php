@@ -13,6 +13,7 @@ $router->get('/', "HomeController@index");
 $router->get('/admin/dashboard', "AdminController@index");
 $router->get('/admin/add-category', "AdminController@addCategory");
 $router->get('/admin/reports', "AdminController@reports");
+$router->get('/author/add-article', "AuthorController@addArticle");
 $router->get('/login','AuthController@login');
 $router->get('/register','AuthController@register');
 $router->dispatch();
