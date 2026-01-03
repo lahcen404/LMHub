@@ -13,4 +13,7 @@ class AuthorController extends Controller{
         $this->view('author/create',['title'=>'Create Article']);
     }
 
+    public function editArticle(){
+        $this->view('author/edit',['title'=>'Edit Article']);
+    }
 }
