@@ -322,4 +322,86 @@
         .animate-fade { animation: fadeIn 0.6s ease forwards; }
 
 
-        
+        /* add category */
+
+          @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -50px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(1); }
+        }
+
+        @keyframes revealCard {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .animate-reveal { animation: revealCard 1s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+
+        /* --- Background Auras --- */
+        .aura {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .aura-blue {
+            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+            top: -10%;
+            left: -5%;
+            animation: drift 15s infinite alternate ease-in-out;
+        }
+
+        .aura-purple {
+            background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+            bottom: -10%;
+            right: -5%;
+            animation: drift 20s infinite alternate-reverse ease-in-out;
+        }
+
+        /* --- Components --- */
+        .glass-container {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-style {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-style:focus {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            transition: all 0.4s ease;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        .category-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-blue);
+        }
