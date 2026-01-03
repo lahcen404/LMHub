@@ -12,4 +12,8 @@ class AdminController extends Controller{
     public function addCategory(){
         $this->view('admin/categories',['title'=>'Add Category']);
     }
+
+    public function reports(){
+        $this->view('admin/reports',['title'=>'Manage Reports']);
+    }
 }

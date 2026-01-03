@@ -156,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="w-full mt-10 py-4 bg-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition">Moderate All</button>
+                    <a href="/admin/reports" class="w-full mt-10 py-4 bg-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition inline-block text-center">Moderate All</a>
                 </div>
 
                 

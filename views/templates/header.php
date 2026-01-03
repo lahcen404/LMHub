@@ -25,7 +25,7 @@
                 
                 <!-- Simple Links with Underline Animation -->
                 <div class="hidden md:flex items-center space-x-12">
-                    <a href="#" class="nav-link">Discover</a>
+                    <a href="/" class="nav-link">Discover</a>
                     <a href="#" class="nav-link">Trending</a>
                     <a href="#" class="nav-link">Authors</a>
                 </div>
