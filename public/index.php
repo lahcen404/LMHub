@@ -16,6 +16,7 @@ $router->get('/admin/reports', "AdminController@reports");
 $router->get('/author/dashboard', "AuthorController@dashboard");
 $router->get('/author/add-article', "AuthorController@addArticle");
 $router->get('/author/edit-article', "AuthorController@editArticle");
+$router->get('/articles/details', "ArticleController@showArticle");
 $router->get('/login','AuthController@login');
 $router->get('/register','AuthController@register');
 $router->dispatch();
