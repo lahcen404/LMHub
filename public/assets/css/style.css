@@ -8,13 +8,15 @@
             --glass-border: rgba(255, 255, 255, 0.08);
             --bg-deep: #020617;
             --bg-indigo: #1e1b4b;
+
+            
         }
 
     
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-deep);
             color: #f8fafc;
             overflow-x: hidden;
         }
@@ -529,4 +531,46 @@
             z-index: -1;
             opacity: 0.2;
             pointer-events: none;
+        }
+
+        /* article search */
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Category Filter Pills */
+        .filter-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .filter-pill:hover, .filter-pill.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
         }
