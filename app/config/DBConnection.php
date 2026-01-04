@@ -1,5 +1,7 @@
 <?php
-
+namespace app\config;
+use PDO;
+use PDOException;
 class DBConnection {
     private $host = 'localhost';
     private $dbName = 'LMHubDB';
@@ -14,7 +16,7 @@ class DBConnection {
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-                echo " Database is connected!<br>";
+                // echo " Database is connected!<br>";
             } catch (PDOException $e) {
                 echo "Connection failed: " . $e->getMessage();
             }
