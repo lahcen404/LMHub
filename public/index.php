@@ -1,12 +1,24 @@
 <?php
-// require_once __DIR__ . '/../app/config/DBConnection.php';
+ require_once __DIR__ . '/../app/config/DBConnection.php';
 require_once __DIR__ . '/../bootstrap/autoload.php';
 
+// use app\config\DBConnection;
 use app\core\Router;
+use app\models\Admin;
 
 
-// $dbConnection = new DBConnection();
-// $connection = $dbConnection->connectDB();
+require_once __DIR__. '/../helpers/functions/debug.php';
+
+$admin = new Admin(1,'lahcenAdmin','lahcen@gml.com','lahcen123');
+
+// dd($admin);
+
+// $role = $admin->getRole();
+// echo "role" . (is_object($role) ? $role->name : $role);
+
+
+ // DBConnection::getInstance()->connectDB();
+ // $con = new DBConnection();
 
 $router = new Router();
 $router->get('/', "HomeController@index");
