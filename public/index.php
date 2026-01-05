@@ -31,6 +31,7 @@ $router->get('/author/edit-article', "AuthorController@editArticle");
 $router->get('/articles/details', "ArticleController@showArticle");
 $router->get('/articles/search', "ArticleController@searchArticle");
 $router->get('/dashboard', "ReaderController@dashboard");
+$router->get('/profile', "ProfileController@profile");
 $router->get('/login','AuthController@login');
 $router->get('/register','AuthController@register');
 $router->dispatch();
