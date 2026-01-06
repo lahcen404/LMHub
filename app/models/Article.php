@@ -11,13 +11,16 @@ class Article extends Model{
     private string $content;
     private ?int $authorId;
     private string $createdAt;
+    private array $categories = [];
 
-    public function __construct(?int $id=null, string $title='' , string $content='' , ?int $authorId = null, string $createdAt = '')
+
+    public function __construct(?int $id=null, string $title='' , string $content='' , ?int $authorId = null, string $createdAt = '', array $categories = [])
     {
             parent::__construct();
             $this->id = $id;
             $this->title = $title;
             $this->content = $content;
+            $this->categories = $categories;
             $this->authorId = $authorId;
             $this->createdAt = $createdAt;
     }
@@ -28,11 +31,13 @@ class Article extends Model{
     public function getContent(): string { return $this->content; }
     public function getAuthorId(): ?int { return $this->authorId; }
     public function getCreatedAt(): string { return $this->createdAt; }
+    public function getCategories(): array { return $this->categories; }
 
     // setters
     public function setTitle(string $title): void { $this->title = $title;}
     public function setContent(string $content): void { $this->content = $content; }
     public function setAuthorId(int $authorId): void { $this->authorId = $authorId; }
+    public function setCategories(array $categories): void { $this->categories = $categories; }
 
 
 }
