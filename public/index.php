@@ -25,7 +25,7 @@ $admin = new Admin(1,'lahcenAdmin','lahcen@gml.com','lahcen123');
 $router = new Router();
 $router->get('/', "HomeController@index");
 $router->get('/admin/dashboard', "AdminController@index");
-$router->get('/admin/add-category', "AdminController@addCategory");
+$router->get('/admin/add-category', "CategoryController@index");
 $router->get('/admin/reports', "AdminController@reports");
 $router->get('/author/dashboard', "AuthorController@dashboard");
 $router->get('/author/add-article', "AuthorController@addArticle");
@@ -40,4 +40,7 @@ $router->get('/logout','AuthController@logout');
 
 $router->post('/login', 'AuthController@Login');
 $router->post('/register', 'AuthController@Register');
+$router->post('/admin/add-category', 'CategoryController@addCategory');
+$router->get('/admin/category/delete', 'CategoryController@delete');
+$router->post('/admin/category/update', 'CategoryController@update');
 $router->dispatch();
