@@ -28,7 +28,7 @@ $router->get('/admin/dashboard', "AdminController@index");
 $router->get('/admin/add-category', "CategoryController@index");
 $router->get('/admin/reports', "AdminController@reports");
 $router->get('/author/dashboard', "AuthorController@dashboard");
-$router->get('/author/add-article', "AuthorController@addArticle");
+$router->get('/author/add-article', "ArticleController@addArticleView");
 $router->get('/author/edit-article', "AuthorController@editArticle");
 $router->get('/articles/details', "ArticleController@showArticle");
 $router->get('/articles/search', "ArticleController@searchArticle");
@@ -43,4 +43,6 @@ $router->post('/register', 'AuthController@Register');
 $router->post('/admin/add-category', 'CategoryController@addCategory');
 $router->get('/admin/category/delete', 'CategoryController@delete');
 $router->post('/admin/category/update', 'CategoryController@update');
+$router->post('/author/add-article', 'ArticleController@storeArticle');
+
 $router->dispatch();
