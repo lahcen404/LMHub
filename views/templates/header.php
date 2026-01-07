@@ -30,12 +30,16 @@
                     <a href="#" class="nav-link">Authors</a>
                 </div>
 
-                <!-- Auth -->
+                
                 <div class="flex items-center space-x-6">
-                    <a href="/login" class="text-sm font-bold text-gray-400 hover:text-white transition">Login</a>
-                    <a href="/register" class="gradient-btn text-white px-6 py-2 rounded-full text-xs font-bold active:scale-95 shadow-lg">
-                        Register
-                    </a>
+                    <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <a href="/profile" class="text-sm font-bold text-gray-200 hover:text-white transition">Profile</a>
+                        <a href="/logout" class="text-sm font-bold text-red-400 hover:text-red-200 transition">Logout</a>
+                    <?php else: ?>
+                        <a href="/login" class="text-sm font-bold text-gray-400 hover:text-white transition">Login</a>
+                        <a href="/register" class="gradient-btn text-white px-6 py-2 rounded-full text-xs font-bold active:scale-95 shadow-lg">Register</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
