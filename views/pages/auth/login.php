@@ -1,12 +1,12 @@
 
-<div class="min-h-screen flex items-center justify-center p-6 bg-[#020617] login-page">
+<div class="flex items-center justify-center p-6 bg-[#020617] login-page" style="min-height: calc(100vh - 64px);">
 
     <!-- Immersive Background -->
     <div class="aura aura-blue"></div>
     <div class="aura aura-purple"></div>
 
     <!-- Login Content -->
-    <div class="w-full max-w-md animate-reveal">
+    <div class="w-full max-w-lg animate-reveal">
         
         <!-- Header Section -->
         <div class="text-center mb-10">
@@ -17,6 +17,15 @@
                 </div>
             </div>
             <h1 class="text-4xl font-extrabold text-white syne tracking-tighter mb-3">LOGIN</h1>
+            <?php if(!empty($errors['general'])): ?>
+                <div class="mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-widest">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> <?= $errors['general'] ?>
+                </div>
+            <?php elseif(isset($error)): ?>
+                <div class="mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-widest">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> <?= $error ?>
+                </div>
+            <?php endif; ?>
         </div>
 
         <!-- Glassmorphism Card -->
@@ -25,15 +34,17 @@
             <!-- Subtle internal light -->
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
 
-            <form action="#" class="space-y-7">
+            <form action="/login" method="POST" class="space-y-6">
                 
                 <!-- Email Input -->
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 ml-2">Email</label>
                     <div class="relative group">
                         <i class="far fa-user absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-400 transition-colors"></i>
-                        <input type="email" placeholder="user@lmhub.com" 
-                            class="input-style w-full pl-14 pr-6 py-5 rounded-[1.8rem] text-sm font-medium text-white placeholder-slate-700">
+                        <input type="email" name="email" placeholder="user@lmhub.com" 
+                            class="input-style w-full pl-14 pr-6 py-4 rounded-[1.8rem] text-sm font-medium text-white placeholder-slate-700"
+                            value="">
+                       
                     </div>
                 </div>
 
@@ -45,8 +56,9 @@
                     </div>
                     <div class="relative group">
                         <i class="far fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-purple-400 transition-colors"></i>
-                        <input type="password" placeholder="••••••••" 
-                            class="input-style w-full pl-14 pr-6 py-5 rounded-[1.8rem] text-sm font-medium text-white placeholder-slate-700">
+                        <input type="password" name="password" placeholder="••••••••" 
+                            class="input-style w-full pl-14 pr-6 py-4 rounded-[1.8rem] text-sm font-medium text-white placeholder-slate-700">
+                        
                     </div>
                 </div>
 
@@ -57,7 +69,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn-premium w-full py-5 rounded-[1.8rem] text-white font-bold text-xs uppercase tracking-[0.2em] mt-2">
+                <button type="submit" class="btn-premium w-full py-4 rounded-[1.8rem] text-white font-bold text-xs uppercase tracking-[0.2em] mt-3">
                     Login
                 </button>
             </form>

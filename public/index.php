@@ -1,4 +1,6 @@
 <?php
+
+session_start();
  require_once __DIR__ . '/../app/config/DBConnection.php';
 require_once __DIR__ . '/../bootstrap/autoload.php';
 
@@ -7,7 +9,7 @@ use app\core\Router;
 use app\models\Admin;
 
 
-require_once __DIR__. '/../helpers/functions/debug.php';
+require_once __DIR__. '/../app/helpers/debug.php';
 
 $admin = new Admin(1,'lahcenAdmin','lahcen@gml.com','lahcen123');
 
@@ -31,7 +33,10 @@ $router->get('/author/edit-article', "AuthorController@editArticle");
 $router->get('/articles/details', "ArticleController@showArticle");
 $router->get('/articles/search', "ArticleController@searchArticle");
 $router->get('/dashboard', "ReaderController@dashboard");
-$router->get('/profile', "ProfileController@profile");
-$router->get('/login','AuthController@login');
-$router->get('/register','AuthController@register');
+$router->get('/profile', "UserController@profile");
+$router->get('/login','AuthController@loginView');
+$router->get('/register','AuthController@registerView');
+
+$router->post('/login', 'AuthController@Login');
+$router->post('/register', 'AuthController@Register');
 $router->dispatch();
