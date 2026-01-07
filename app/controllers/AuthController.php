@@ -20,11 +20,21 @@ class AuthController extends Controller
 
     public function loginView()
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!empty($_SESSION['user_id'])) {
+            return $this->redirectByRole($_SESSION['user_role'] ?? null);
+        }
+
         $this->view('auth/login', ['login' => 'Login | LMHub']);
     }
 
     public function registerView()
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!empty($_SESSION['user_id'])) {
+            return $this->redirectByRole($_SESSION['user_role'] ?? null);
+        }
+
         $this->view('auth/register', ['Register' => 'Register | LMHub']);
     }
 

@@ -36,6 +36,7 @@ $router->get('/dashboard', "ReaderController@dashboard");
 $router->get('/profile', "UserController@profile");
 $router->get('/login','AuthController@loginView');
 $router->get('/register','AuthController@registerView');
+$router->get('/logout','AuthController@logout');
 
 $router->post('/login', 'AuthController@Login');
 $router->post('/register', 'AuthController@Register');
