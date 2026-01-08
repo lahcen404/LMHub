@@ -6,6 +6,7 @@ use app\core\Controller;
 use app\helpers\Validation;
 use app\helpers\debug;
 use app\config\DBConnection;
+use app\controllers\LikeCommentController;
 use Exception;
 
 
@@ -144,6 +145,9 @@ class ArticleController extends Controller
             exit();
         }
 
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $userId = $_SESSION['user_id'] ?? 0;
+
         
         $sql = "SELECT a.id, a.title, a.content, a.created_at, u.fullName AS author_name,
                 GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
@@ -164,7 +168,7 @@ class ArticleController extends Controller
             exit();
         }
 
-        $comments = CommentController::getByArticle($this->db, $id);
+        $comments = LikeCommentController::getByArticle($this->db, $id, $userId);
 
         $this->view('articles/articleDetails', [
             'title'    => htmlspecialchars($article['title']),
@@ -260,4 +264,5 @@ class ArticleController extends Controller
         header('Location: /author/dashboard');
         exit();
     }
+    
 }
