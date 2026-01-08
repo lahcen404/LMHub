@@ -7,6 +7,7 @@ use app\helpers\Validation;
 use app\helpers\debug;
 use app\config\DBConnection;
 use app\controllers\LikeCommentController;
+use app\controllers\LikeArticleController;
 use Exception;
 
 
@@ -170,10 +171,15 @@ class ArticleController extends Controller
 
         $comments = LikeCommentController::getByArticle($this->db, $id, $userId);
 
-        $this->view('articles/articleDetails', [
-            'title'    => htmlspecialchars($article['title']),
-            'article'  => $article,
-            'comments' => $comments 
+        $articleLikeCount = LikeArticleController::getCount($this->db, $id);
+        $isArticleLiked   = LikeArticleController::isLiked($this->db, $id, $userId);
+
+       $this->view('articles/articleDetails', [
+            'title'            => htmlspecialchars($article['title']),
+            'article'          => $article,
+            'comments'         => $comments,
+            'articleLikeCount' => $articleLikeCount,
+            'isArticleLiked'   => $isArticleLiked
         ]);
         
     }

@@ -57,10 +57,14 @@
         <!-- Engagement Bar (Likes/Shares) -->
         <section class="glass-card rounded-[2rem] p-6 mb-16 flex items-center justify-between">
             <div class="flex items-center gap-6">
-                <button class="action-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 liked">
-                    <i class="fas fa-heart"></i>
-                    <span class="text-xs font-bold text-white">1,240</span>
-                </button>
+                 <!-- Post Like Toggle Form -->
+                <form action="/article/like" method="POST">
+                    <input type="hidden" name="article_id" value="<?= $article['id'] ?>">
+                    <button type="submit" class="action-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 transition-all hover:bg-white/5 <?= ($isArticleLiked ?? false) ? 'text-red-500 border-red-500/20 bg-red-500/5' : 'text-slate-400' ?>">
+                        <i class="fas fa-heart <?= ($isArticleLiked ?? false) ? 'animate-pulse' : '' ?>"></i>
+                        <span class="text-xs font-bold"><?= number_format($articleLikeCount ?? 0) ?></span>
+                    </button>
+                </form>
                 
                 <a href="#comments" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 bg-blue-500/5 text-blue-400 transition-all hover:bg-blue-500/10">
                     <i class="fas fa-comment-dots"></i>
