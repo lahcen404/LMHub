@@ -28,19 +28,24 @@ $router->get('/admin/dashboard', "AdminController@index");
 $router->get('/admin/add-category', "CategoryController@index");
 $router->get('/admin/reports', "AdminController@reports");
 $router->get('/author/dashboard', "AuthorController@dashboard");
-$router->get('/author/add-article', "AuthorController@addArticle");
-$router->get('/author/edit-article', "AuthorController@editArticle");
-$router->get('/articles/details', "ArticleController@showArticle");
+$router->get('/author/add-article', "ArticleController@addArticleView");
+$router->get('/author/edit-article', "ArticleController@editArticleView");
+$router->get('/author/delete-article', "ArticleController@deleteArticle");
+$router->get('/articles/details', "ArticleController@viewArticle");
 $router->get('/articles/search', "ArticleController@searchArticle");
 $router->get('/dashboard', "ReaderController@dashboard");
 $router->get('/profile', "UserController@profile");
 $router->get('/login','AuthController@loginView');
 $router->get('/register','AuthController@registerView');
 $router->get('/logout','AuthController@logout');
+$router->get('/admin/category/delete', 'CategoryController@delete');
+
 
 $router->post('/login', 'AuthController@Login');
 $router->post('/register', 'AuthController@Register');
 $router->post('/admin/add-category', 'CategoryController@addCategory');
-$router->get('/admin/category/delete', 'CategoryController@delete');
 $router->post('/admin/category/update', 'CategoryController@update');
+$router->post('/author/add-article', 'ArticleController@storeArticle');
+$router->post('/author/update-article', 'ArticleController@updateArticle');
+
 $router->dispatch();

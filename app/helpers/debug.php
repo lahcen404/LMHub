@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers\functions;
+namespace app\helpers;
 
 function dd($data)
 {

@@ -18,13 +18,13 @@
         <!-- Header: Metadata -->
         <header class="mb-16">
             <div class="flex flex-wrap gap-2 mb-6">
-                <!-- Loop Categories here -->
-                <span class="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-black uppercase tracking-widest text-blue-400">Technology</span>
-                <span class="px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-[10px] font-black uppercase tracking-widest text-purple-400">AI Hub</span>
+                <?php foreach (explode(',', $article['categories']) as $cat): ?>
+                    <span class="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-black uppercase tracking-widest text-blue-400"><?= htmlspecialchars(trim($cat)) ?></span>
+                <?php endforeach; ?>
             </div>
 
             <h1 class="text-5xl md:text-7xl font-extrabold text-white syne tracking-tighter leading-[1.1] mb-8">
-                The Future of Neural Networks in Edge Computing
+                <?= htmlspecialchars($article['title']) ?>
             </h1>
 
             <div class="flex items-center justify-between py-8 border-y border-white/5">
@@ -33,13 +33,13 @@
                         <div class="w-full h-full bg-[#020617] rounded-2xl flex items-center justify-center font-bold text-white text-xs">AV</div>
                     </div>
                     <div>
-                        <p class="text-sm font-bold text-white">Julian Vance</p>
+                        <p class="text-sm font-bold text-white"><?= htmlspecialchars($article['author_name']) ?></p>
                         <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">Author Identity </p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">Jan 03, 2026</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-600"><?= htmlspecialchars($article['created_at']) ?></span>
                 </div>
             </div>
         </header>
@@ -47,21 +47,11 @@
         <!-- Main Body Content -->
         <section class="content-area mb-20">
             <p class="mb-8">
-                As we advance into the mid-2020s, neural networks are evolving from static models to dynamic, self-correcting entities. The integration of liquid neural networks is proving to be a game-changer for real-time edge computing.
+                <?= htmlspecialchars($article['content']) ?>
             </p>
 
-            <h2>Protocol Architectures</h2>
-            <p class="mb-8">
-                Unlike traditional neural architectures that require massive data throughput, these new localized models prioritize efficiency. By mimicking the synaptic plasticity found in biological organisms, edge devices can now process complex visual and auditory data with minimal latency.
-            </p>
 
-            <blockquote class="border-l-4 border-blue-500 bg-blue-500/5 p-8 rounded-r-3xl my-12 italic text-lg text-white">
-                "The shift from cloud-dependency to local-intelligence marks the second great era of the digital protocol."
-            </blockquote>
-
-            <p>
-                In our recent tests, power consumption was reduced by 40% while maintaining a 98.4% accuracy rate in pattern recognition. This opens the door for autonomous systems that can operate indefinitely without external server communication.
-            </p>
+           
         </section>
 
         <!-- Engagement Bar (Likes/Shares) -->
