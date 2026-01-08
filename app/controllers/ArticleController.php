@@ -16,12 +16,12 @@ class ArticleController extends Controller
         $this->db = DBConnection::getInstance()->connectDB();
     }
 
-    
+    // view of add article
     public function addArticleView()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        
-        if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['AUTHOR', 'ADMIN'])) {
+
+        if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'AUTHOR') {
             header('Location: /login');
             exit();
         }
@@ -35,10 +35,14 @@ class ArticleController extends Controller
         ]);
     }
 
-    
+    // stoore article
     public function storeArticle()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'AUTHOR') {
+            header('Location: /login');
+            exit();
+        }
         
         $errors = [];
         $title       = Validation::clean($_POST['title'] ?? '');
@@ -85,5 +89,132 @@ class ArticleController extends Controller
             'errors' => $errors,
             'categories' => $categories
         ]);
+    }
+
+    // edit article 
+    public function editArticleView()
+    {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'AUTHOR') {
+            header('Location: /login');
+            exit();
+        }
+
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: /author/dashboard');
+            exit();
+        }
+
+        
+        $sql = "SELECT * FROM articles WHERE id = ? AND author_id = ? LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id, $_SESSION['user_id']]);
+        $article = $stmt->fetch();
+
+        if (!$article) {
+            header('Location: /author/dashboard');
+            exit();
+        }
+
+        
+        $categories = CategoryController::getAll($this->db);
+
+        $sqlSel = "SELECT category_id FROM article_category WHERE article_id = ?";
+        $s = $this->db->prepare($sqlSel);
+        $s->execute([$id]);
+        $selected = array_column($s->fetchAll(), 'category_id');
+
+        $this->view('author/edit', [
+            'title' => 'Edit Article',
+            'article' => $article,
+            'categories' => $categories,
+            'selected' => $selected
+        ]);
+    }
+
+    // updatte article
+    public function updateArticle()
+    {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'AUTHOR') {
+            header('Location: /login');
+            exit();
+        }
+
+        $id = $_POST['article_id'] ?? null;
+        $title = Validation::clean($_POST['title'] ?? '');
+        $content = $_POST['content'] ?? '';
+        $categoryIds = $_POST['category_ids'] ?? [];
+
+        $errors = [];
+        if (Validation::isEmpty($title)) $errors['title'] = 'Title required';
+        if (Validation::isEmpty($content)) $errors['content'] = 'Content required';
+        if (empty($categoryIds)) $errors['categories'] = 'Select at least one category';
+
+        if ($id && empty($errors)) {
+            try {
+                $this->db->beginTransaction();
+                $sql = "UPDATE articles SET title = ?, content = ? WHERE id = ? AND author_id = ?";
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute([$title, $content, $id, $_SESSION['user_id']]);
+
+                $del = $this->db->prepare("DELETE FROM article_category WHERE article_id = ?");
+                $del->execute([$id]);
+
+                $ins = $this->db->prepare("INSERT INTO article_category (article_id, category_id) VALUES (?, ?)");
+                foreach ($categoryIds as $c) {
+                    $ins->execute([$id, $c]);
+                }
+
+                $this->db->commit();
+                header('Location: /author/dashboard');
+                exit();
+            } catch (Exception $e) {
+                $this->db->rollBack();
+                $errors['system'] = $e->getMessage();
+            }
+        }
+
+      
+        $categories = CategoryController::getAll($this->db);
+        $this->view('author/edit', [
+            'errors' => $errors,
+            'article' => ['id' => $id, 'title' => $title, 'content' => $content],
+            'categories' => $categories,
+            'selected' => $categoryIds
+        ]);
+    }
+
+    // delaete article
+    public function deleteArticle()
+    {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'AUTHOR') {
+            header('Location: /login');
+            exit();
+        }
+
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: /author/dashboard');
+            exit();
+        }
+
+        try {
+            $this->db->beginTransaction();
+            $delPvt = $this->db->prepare("DELETE FROM article_category WHERE article_id = ?");
+            $delPvt->execute([$id]);
+
+            $del = $this->db->prepare("DELETE FROM articles WHERE id = ? AND author_id = ?");
+            $del->execute([$id, $_SESSION['user_id']]);
+
+            $this->db->commit();
+        } catch (Exception $e) {
+            $this->db->rollBack();
+        }
+
+        header('Location: /author/dashboard');
+        exit();
     }
 }

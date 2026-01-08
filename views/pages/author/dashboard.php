@@ -72,7 +72,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Loop your articles here -->
+                        <?php foreach (($articles ?? []) as $a): ?>
                         <tr class="group">
                             <td>
                                 <div class="flex items-center gap-4">
@@ -80,60 +80,30 @@
                                         <i class="far fa-file-alt text-slate-500 group-hover:text-blue-400"></i>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-bold">The Future of Neural Networks</p>
-                                        <p class="text-[10px] text-slate-500 uppercase font-black">Category: Tech</p>
+                                        <p class="text-sm font-bold"><?= htmlspecialchars($a['title']) ?></p>
+                                        <p class="text-[10px] text-slate-500 uppercase font-black">Category: <?= htmlspecialchars($a['categories'] ?? 'Uncategorized') ?></p>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="flex gap-4 text-xs font-bold text-slate-400">
-                                    <span><i class="far fa-heart mr-1"></i> 124</span>
-                                    <span><i class="far fa-comment mr-1"></i> 18</span>
+                                    <span><i class="far fa-heart mr-1"></i> 0</span>
+                                    <span><i class="far fa-comment mr-1"></i> 0</span>
                                 </div>
                             </td>
-                            <td class="text-xs font-medium text-slate-500">Jan 02, 2026</td>
+                            <td class="text-xs font-medium text-slate-500"><?= date('M d, Y', strtotime($a['created_at'])) ?></td>
                             <td class="text-right">
                                 <div class="flex justify-end gap-2">
-                                    <button class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
+                                    <a href="/author/edit-article?id=<?= $a['id'] ?>" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
                                         <i class="fas fa-edit text-[10px] text-blue-400"></i>
-                                    </button>
-                                    <button class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-red-500/20 group/del transition">
+                                    </a>
+                                    <a href="/author/delete-article?id=<?= $a['id'] ?>" onclick="return confirm('Delete this article?')" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-red-500/20 group/del transition">
                                         <i class="fas fa-trash-alt text-[10px] text-slate-500 group-hover/del:text-red-400"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
-                        <!-- More Items -->
-                        <tr class="group">
-                            <td>
-                                <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-purple-500/10 transition-colors">
-                                        <i class="far fa-file-alt text-slate-500 group-hover:text-purple-400"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-bold">Deep Space Observations</p>
-                                        <p class="text-[10px] text-slate-500 uppercase font-black">Category: Science</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="flex gap-4 text-xs font-bold text-slate-400">
-                                    <span><i class="far fa-heart mr-1"></i> 89</span>
-                                    <span><i class="far fa-comment mr-1"></i> 12</span>
-                                </div>
-                            </td>
-                            <td class="text-xs font-medium text-slate-500">Dec 28, 2025</td>
-                            <td class="text-right">
-                                <div class="flex justify-end gap-2">
-                                    <button class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
-                                        <i class="fas fa-edit text-[10px] text-blue-400"></i>
-                                    </button>
-                                    <button class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-red-500/20 group/del transition">
-                                        <i class="fas fa-trash-alt text-[10px] text-slate-500 group-hover/del:text-red-400"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

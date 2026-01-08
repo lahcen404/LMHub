@@ -78,7 +78,6 @@
             <div class="xl:col-span-2 glass-card rounded-[2.5rem] overflow-hidden animate-fade" style="animation-delay: 0.1s">
                 <div class="p-8 border-b border-white/5 flex items-center justify-between">
                     <h2 class="text-xl font-bold syne">Latest Articles</h2>
-                    <button class="text-xs font-bold text-blue-500 uppercase tracking-widest hover:text-white transition">Manage All</button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full custom-table">
@@ -92,34 +91,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach (($articles ?? []) as $a): ?>
                             <tr>
                                 <td>
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+                                        <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-slate-400">
                                             <i class="fas fa-file-alt"></i>
                                         </div>
-                                        <span class="font-bold">Neural Architectures</span>
+                                        <span class="font-bold"><?= htmlspecialchars($a['title']) ?></span>
                                     </div>
                                 </td>
-                                <td>Julian Vance</td>
-                                <td class="text-slate-400">2026-01-02</td>
-                                <td><span class="px-2 py-1 bg-white/5 rounded-md text-[9px] uppercase font-bold text-slate-400">Tech</span></td>
-                                <td class="text-right"><button class="p-2 hover:text-blue-500 transition"><i class="fas fa-ellipsis-v"></i></button></td>
-                            </tr>
-                            <tr>
+                                <td><?= htmlspecialchars($a['author_name'] ?? 'unknoown') ?></td>
+                                <td class="text-slate-400"><?= htmlspecialchars($a['created_at']) ?></td>
                                 <td>
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
-                                            <i class="fas fa-file-alt"></i>
-                                        </div>
-                                        <span class="font-bold">Quantum Mechanics</span>
-                                    </div>
+                                    <span class="px-2 py-1 bg-white/5 rounded-md text-[9px] uppercase font-bold text-slate-400"><?= htmlspecialchars($a['categories'] ?? 'Uncategorized') ?></span>
                                 </td>
-                                <td>Dr. Aris Thorne</td>
-                                <td class="text-slate-400">2026-01-01</td>
-                                <td><span class="px-2 py-1 bg-white/5 rounded-md text-[9px] uppercase font-bold text-slate-400">Science</span></td>
-                                <td class="text-right"><button class="p-2 hover:text-blue-500 transition"><i class="fas fa-ellipsis-v"></i></button></td>
                             </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
