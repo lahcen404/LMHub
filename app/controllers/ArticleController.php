@@ -4,8 +4,11 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\helpers\Validation;
+use app\helpers\debug;
 use app\config\DBConnection;
 use Exception;
+
+use function app\helpers\dd;
 
 class ArticleController extends Controller
 {
@@ -91,7 +94,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    // edit article 
+    // edit article view
     public function editArticleView()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
@@ -132,6 +135,43 @@ class ArticleController extends Controller
             'selected' => $selected
         ]);
     }
+
+    public function viewArticle()
+    {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: /');
+            exit();
+        }
+
+        $sql = "SELECT a.id, a.title, a.content, a.created_at, u.fullname AS author_name,
+                GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+                FROM articles a
+                LEFT JOIN users u ON a.author_id = u.id
+                LEFT JOIN article_category ac ON ac.article_id = a.id
+                LEFT JOIN categories c ON ac.category_id = c.id
+                WHERE a.id = ?
+                GROUP BY a.id
+                LIMIT 1";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        $article = $stmt->fetch();
+
+        //  dd($article);
+
+        if (!$article) {
+            header('Location: /');
+            exit();
+        }
+
+        $this->view('articles/articleDetails', [
+            'title' => htmlspecialchars($article['title']),
+            'article' => $article
+        ]);
+    }
+
+    
 
     // updatte article
     public function updateArticle()

@@ -9,7 +9,6 @@
                     <i class="fas fa-arrow-left mr-1"></i> Return to Dashboard
                 </a>
                 <h1 class="text-4xl font-extrabold syne tracking-tighter">Edit Protocol</h1>
-                <p class="text-slate-500 text-xs font-medium uppercase tracking-widest mt-1">Article ID: <span class="text-blue-500">#ART-2204</span></p>
             </div>
             <div class="w-12 h-12 glass-card flex items-center justify-center">
                 <i class="fas fa-edit text-purple-400"></i>
@@ -42,24 +41,6 @@
                             </div>
                         </label>
                         <?php endforeach; ?>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="2" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Science
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="3" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Design
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="4" class="hidden peer" >
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                AI Hub
-                            </div>
-                        </label>
                     </div>
                 </div>
 

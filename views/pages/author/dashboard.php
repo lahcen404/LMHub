@@ -94,6 +94,9 @@
                             <td class="text-xs font-medium text-slate-500"><?= date('M d, Y', strtotime($a['created_at'])) ?></td>
                             <td class="text-right">
                                 <div class="flex justify-end gap-2">
+                                    <a href="/articles/details?id=<?= $a['id'] ?>" class="text-slate-500 hover:text-blue-600 font-bold mr-4 transition" title="View Details">
+                                     <i class="fas fa-eye"></i>
+                                </a>
                                     <a href="/author/edit-article?id=<?= $a['id'] ?>" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
                                         <i class="fas fa-edit text-[10px] text-blue-400"></i>
                                     </a>
