@@ -47,5 +47,6 @@ $router->post('/admin/add-category', 'CategoryController@addCategory');
 $router->post('/admin/category/update', 'CategoryController@update');
 $router->post('/author/add-article', 'ArticleController@storeArticle');
 $router->post('/author/update-article', 'ArticleController@updateArticle');
+$router->post('/article/comment', 'CommentController@addComment');
 
 $router->dispatch();

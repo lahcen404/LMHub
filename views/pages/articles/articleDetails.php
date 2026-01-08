@@ -61,6 +61,11 @@
                     <i class="fas fa-heart"></i>
                     <span class="text-xs font-bold text-white">1,240</span>
                 </button>
+                
+                <a href="#comments" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/5 bg-blue-500/5 text-blue-400 transition-all hover:bg-blue-500/10">
+                    <i class="fas fa-comment-dots"></i>
+                    <span class="text-xs font-bold"><?= count($comments) ?></span>
+                </a>
             </div>
             
             <button class="text-xs font-bold text-slate-500 hover:text-red-400 transition uppercase tracking-widest">
@@ -68,18 +73,20 @@
             </button>
         </section>
 
-        <!-- Comments Section -->
-        <section class="space-y-10">
+       <!-- Comments Section -->
+        <section id="comments" class="space-y-10 border-t border-white/5 pt-10">
             <div class="flex items-center justify-between">
                 <h3 class="text-2xl font-bold syne text-white">Conversations</h3>
-                <span class="text-xs font-black uppercase text-slate-600 tracking-[0.3em]">18 Responses</span>
+                <span class="text-xs font-black uppercase text-slate-600 tracking-[0.3em]"><?= count($comments) ?> Responses</span>
             </div>
 
             <!-- Comment Form -->
-            <div class="glass-card p-6 rounded-[2rem]">
-                <form action="#" method="POST" class="space-y-4">
-                    <textarea placeholder="Join the discussion..." 
-                        class="w-full bg-black/20 border border-white/5 rounded-2xl p-6 text-sm text-white focus:outline-none focus:border-blue-500/50 resize-none min-h-[120px]"></textarea>
+            <?php if(isset($_SESSION['user_id'])): ?>
+            <div class="glass-card p-6 rounded-[2rem] border border-white/5 bg-white/[0.02]">
+                <form action="/article/comment" method="POST" class="space-y-4">
+                    <input type="hidden" name="article_id" value="<?= $article['id'] ?>">
+                    <textarea name="content" placeholder="Join the discussion..." required
+                        class="w-full bg-black/20 border border-white/5 rounded-2xl p-6 text-sm text-white focus:outline-none focus:border-blue-500/50 resize-none min-h-[120px] transition-all"></textarea>
                     <div class="flex justify-end">
                         <button type="submit" class="bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-xl text-white font-bold text-xs uppercase tracking-widest transition shadow-lg shadow-blue-500/20">
                             Post Comment
@@ -87,30 +94,69 @@
                     </div>
                 </form>
             </div>
+            <?php else: ?>
+            <div class="glass-card p-6 rounded-[2rem] border border-dashed border-white/10 text-center">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">
+                    Log in to participate in the conversation. <a href="/login" class="text-blue-400">Login</a>
+                </p>
+            </div>
+            <?php endif; ?>
 
             <!-- List of Comments -->
             <div class="space-y-8">
-                <!-- Single Comment Block -->
+                <?php foreach($comments as $comment): ?>
                 <div class="flex gap-6 p-2">
-                    <div class="w-10 h-10 rounded-full bg-slate-800 flex-shrink-0 flex items-center justify-center font-bold text-[10px]">SM</div>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-3">
-                            <span class="text-sm font-bold text-white">Sienna Moss</span>
-                            <span class="text-[9px] font-black text-slate-600 uppercase">2h ago</span>
+                    <!-- User Initial Avatar -->
+                    <div class="w-10 h-10 rounded-full bg-slate-800 flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-blue-400 border border-white/5">
+                        <?= strtoupper(substr($comment['fullName'], 0, 1)) ?>
+                    </div>
+                    
+                    <div class="space-y-2 flex-grow">
+                        <!-- Comment Header -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-bold text-white"><?= htmlspecialchars($comment['fullName']) ?></span>
+                                <span class="text-[9px] font-black text-slate-600 uppercase tracking-tighter">
+                                    <?= date('H:i • d M Y', strtotime($comment['created_at'])) ?>
+                                </span>
+                            </div>
+                            
+                            <form action="/comment/report" method="POST">
+                                <input type="hidden" name="comment_id" value="<?= $comment['id'] ?>">
+                                <button type="submit" class="text-[8px] font-black uppercase text-red-500 hover:text-red-400 transition-colors flex items-center gap-1">
+                                    <i class="fas fa-flag"></i> Report
+                                </button>
+                            </form>
                         </div>
+
+                        <!-- Comment Content -->
                         <p class="text-sm leading-relaxed text-slate-400">
-                            This is a fascinating breakdown. Have you looked into how this impacts the latency for autonomous vehicle sensors specifically?
+                            <?= nl2br(htmlspecialchars($comment['content'])) ?>
                         </p>
+
+                        <!-- Comment Actions: Like -->
+                        <div class="flex items-center gap-4 pt-1">
+                            <form action="/comment/like" method="POST" class="inline">
+                                <input type="hidden" name="comment_id" value="<?= $comment['id'] ?>">
+                                <input type="hidden" name="article_id" value="<?= $article['id'] ?>">
+                                <button type="submit" class="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-red-400 transition-all">
+                                    <i class="fas fa-heart"></i>
+                                    <span><?= $comment['like_count'] ?? 0 ?></span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <?php endforeach; ?>
+
+                <?php if(empty($comments)): ?>
+                    <p class="text-center py-10 text-[10px] font-black uppercase tracking-widest text-slate-700">No responses recorded yet.</p>
+                <?php endif; ?>
             </div>
         </section>
 
     </article>
 
-    <!-- Simple Page Footer -->
-    <footer class="py-20 text-center border-t border-white/5">
-        <p class="text-[9px] font-black uppercase tracking-[0.6em] text-slate-800">LMHUB PROTOCOL // PUBLISHED ARTICLE</p>
-    </footer>
+  
 
 </body>
