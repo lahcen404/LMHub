@@ -134,14 +134,14 @@
                             <?= nl2br(htmlspecialchars($comment['content'])) ?>
                         </p>
 
-                        <!-- Comment Actions: Like -->
-                        <div class="flex items-center gap-4 pt-1">
-                            <form action="/comment/like" method="POST" class="inline">
+                        <!-- Comment Appreciation Form (Like) -->
+                        <div class="flex items-center pt-1">
+                            <form action="/comment/like" method="POST">
                                 <input type="hidden" name="comment_id" value="<?= $comment['id'] ?>">
                                 <input type="hidden" name="article_id" value="<?= $article['id'] ?>">
-                                <button type="submit" class="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-red-400 transition-all">
-                                    <i class="fas fa-heart"></i>
-                                    <span><?= $comment['like_count'] ?? 0 ?></span>
+                                <button type="submit" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all group/like">
+                                    <i class="fas fa-heart text-[10px] <?= (isset($comment['is_liked']) && $comment['is_liked']) ? 'text-red-500' : 'text-slate-600 group-hover/like:text-red-400' ?>"></i>
+                                    <span class="text-[10px] font-bold text-slate-400 group-hover/like:text-white"><?= $comment['like_count'] ?? 0 ?></span>
                                 </button>
                             </form>
                         </div>
