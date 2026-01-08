@@ -8,7 +8,6 @@ use app\helpers\debug;
 use app\config\DBConnection;
 use Exception;
 
-use function app\helpers\dd;
 
 class ArticleController extends Controller
 {
@@ -32,6 +31,7 @@ class ArticleController extends Controller
         
         $categories = CategoryController::getAll($this->db);
 
+        
         $this->view('author/create', [
             'title' => 'add Article | LMHub',
             'categories' => $categories
@@ -144,7 +144,8 @@ class ArticleController extends Controller
             exit();
         }
 
-        $sql = "SELECT a.id, a.title, a.content, a.created_at, u.fullname AS author_name,
+        
+        $sql = "SELECT a.id, a.title, a.content, a.created_at, u.fullName AS author_name,
                 GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
                 FROM articles a
                 LEFT JOIN users u ON a.author_id = u.id
@@ -158,17 +159,19 @@ class ArticleController extends Controller
         $stmt->execute([$id]);
         $article = $stmt->fetch();
 
-        //  dd($article);
-
         if (!$article) {
             header('Location: /');
             exit();
         }
 
+        $comments = CommentController::getByArticle($this->db, $id);
+
         $this->view('articles/articleDetails', [
-            'title' => htmlspecialchars($article['title']),
-            'article' => $article
+            'title'    => htmlspecialchars($article['title']),
+            'article'  => $article,
+            'comments' => $comments 
         ]);
+        
     }
 
     
