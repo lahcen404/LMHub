@@ -28,7 +28,7 @@
                     </div>
                     <span class="text-xs font-black uppercase text-slate-600 tracking-tighter">Published</span>
                 </div>
-                <h3 class="text-3xl font-bold mb-1">24</h3>
+                <h3 class="text-3xl font-bold mb-1">--</h3>
                 <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">Total Articles</p>
             </div>
 
@@ -39,7 +39,7 @@
                     </div>
                     <span class="text-xs font-black uppercase text-slate-600 tracking-tighter">Engagement</span>
                 </div>
-                <h3 class="text-3xl font-bold mb-1">1.2k</h3>
+                <h3 class="text-3xl font-bold mb-1">--</h3>
                 <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">Total Appreciation</p>
             </div>
 
@@ -50,7 +50,7 @@
                     </div>
                     <span class="text-xs font-black uppercase text-slate-600 tracking-tighter">Active</span>
                 </div>
-                <h3 class="text-3xl font-bold mb-1">482</h3>
+                <h3 class="text-3xl font-bold mb-1">--</h3>
                 <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">System Comments</p>
             </div>
         </section>
@@ -87,8 +87,8 @@
                             </td>
                             <td>
                                 <div class="flex gap-4 text-xs font-bold text-slate-400">
-                                    <span><i class="far fa-heart mr-1"></i> <?= number_format($a['like_count'] ?? 0) ?></span>
-                                    <span><i class="far fa-comment mr-1"></i> <?= number_format($a['comment_count'] ?? 0) ?></span>
+                                    <span><i class="far fa-heart mr-1"></i> 0</span>
+                                    <span><i class="far fa-comment mr-1"></i> 0</span>
                                 </div>
                             </td>
                             <td class="text-xs font-medium text-slate-500"><?= date('M d, Y', strtotime($a['created_at'])) ?></td>

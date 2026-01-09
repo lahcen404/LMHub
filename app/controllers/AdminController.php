@@ -35,11 +35,15 @@ class AdminController extends Controller
                    GROUP BY a.id ORDER BY a.created_at DESC LIMIT 10";
         $articles = $this->db->query($sqlArt)->fetchAll(PDO::FETCH_ASSOC);
 
-       
-        $sqlRep = "SELECT r.*, u.fullName as reporter_name,
-                   CASE WHEN r.comment_id IS NOT NULL THEN 'Comment' ELSE 'Article' END as report_type
+        
+        $sqlRep = "SELECT r.*, u.fullName as reporter_name, 
+                   art.title as article_report_title, 
+                   parent_art.title as comment_parent_title
                    FROM reports r
                    JOIN users u ON r.reporter_id = u.id
+                   LEFT JOIN articles art ON r.article_id = art.id
+                   LEFT JOIN comments com ON r.comment_id = com.id
+                   LEFT JOIN articles parent_art ON com.article_id = parent_art.id
                    ORDER BY r.created_at DESC LIMIT 5";
         $reports = $this->db->query($sqlRep)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -88,7 +92,7 @@ class AdminController extends Controller
                 $this->db->rollBack();
             }
         }
-        // Redirect back to Dashboard
+       
         header('Location: /admin/dashboard');
         exit();
     }
