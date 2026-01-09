@@ -23,24 +23,50 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
             
-            <!-- Left Side: Add Form -->
+            <!-- Left Side: Add/Edit Form -->
             <div class="lg:col-span-2">
                 <div class="glass-container p-8 rounded-[2.5rem] sticky top-8">
-                    <h2 class="text-xl font-bold syne mb-6">Register New Category</h2>
-                    <form action="#" method="POST" class="space-y-6">
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-2">Category Name</label>
-                            <div class="relative group">
-                                <i class="fas fa-hashtag absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-400 transition-colors"></i>
-                                <input type="text" name="name" placeholder="e.g. Artificial Intelligence" required
-                                    class="input-style w-full pl-14 pr-6 py-4 rounded-2xl text-sm font-medium text-white placeholder-slate-700">
+                    <?php $editing = isset($_GET['edit']) ? (int)$_GET['edit'] : null; ?>
+                    <?php if ($editing):
+                        $editCat = null;
+                        foreach ($categories as $c) { if ($c['id'] == $editing) { $editCat = $c; break; } }
+                    ?>
+                        <h2 class="text-xl font-bold syne mb-6">Edit Category</h2>
+                        <form action="/admin/category/update" method="POST" class="space-y-6">
+                            <input type="hidden" name="id" value="<?= $editCat['id'] ?? '' ?>">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-2">Category Name</label>
+                                <div class="relative group">
+                                    <i class="fas fa-hashtag absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-400 transition-colors"></i>
+                                    <input type="text" name="name" placeholder="Category name" value="<?= htmlspecialchars($editCat['name'] ?? '') ?>"
+                                        class="input-style w-full pl-14 pr-6 py-4 rounded-2xl text-sm font-medium text-white placeholder-slate-700">
+                                </div>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn-premium w-full py-4 rounded-2xl text-white font-bold text-xs uppercase tracking-[0.2em]">
-                            Save Category
-                        </button>
-                    </form>
+                            <div class="flex gap-3">
+                                <button type="submit" class="btn-premium flex-1 py-4 rounded-2xl text-white font-bold text-xs uppercase tracking-[0.2em]">Update</button>
+                                <a href="/admin/add-category" class="btn-premium flex-1 py-4 rounded-2xl text-white font-bold text-xs uppercase tracking-[0.2em] bg-gray-600">Cancel</a>
+                            </div>
+                        </form>
+                    <?php else: ?>
+                        <h2 class="text-xl font-bold syne mb-6">Register New Category</h2>
+                        <form action="/admin/add-category" method="POST" class="space-y-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-2">Category Name</label>
+                                <div class="relative group">
+                                    <i class="fas fa-hashtag absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-400 transition-colors"></i>
+                                    <input type="text" name="name" placeholder="e.g. Artificial Intelligence" value="<?= htmlspecialchars($_POST['name'] ?? '') ?>"
+                                        class="input-style w-full pl-14 pr-6 py-4 rounded-2xl text-sm font-medium text-white placeholder-slate-700">
+                                </div>
+                            </div>
+
+                            <?php if(!empty($errors['name'])): ?><p class="text-sm text-red-400"><?= $errors['name'] ?></p><?php endif; ?>
+
+                            <button type="submit" class="btn-premium w-full py-4 rounded-2xl text-white font-bold text-xs uppercase tracking-[0.2em]">
+                                Save Category
+                            </button>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -49,78 +75,28 @@
                 <div class="glass-container p-8 rounded-[2.5rem]">
                     <div class="flex items-center justify-between mb-8">
                         <h2 class="text-xl font-bold syne">Active Protocols</h2>
-                        <span class="text-[10px] bg-white/5 px-3 py-1 rounded-full font-black text-slate-500 uppercase">12 Total</span>
+                        <span class="text-[10px] bg-white/5 px-3 py-1 rounded-full font-black text-slate-500 uppercase">Total : <?= count($categories) ?></span>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Category Item -->
-                        <div class="category-item p-4 rounded-2xl flex items-center justify-between group">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-xs">
-                                    <i class="fas fa-code"></i>
+                        <?php if (!empty($categories)): foreach ($categories as $cat): ?>
+                            <div class="category-item p-4 rounded-2xl flex items-center justify-between group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-300 text-xs">
+                                        <i class="fas fa-tag"></i>
+                                    </div>
+                                    <span class="text-sm font-bold"><?= htmlspecialchars($cat['name']) ?></span>
                                 </div>
-                                <span class="text-sm font-bold">Technology</span>
-                            </div>
-                            <button class="text-slate-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition">
-                                <i class="fas fa-trash-alt text-xs"></i>
-                            </button>
-                        </div>
-
-                        <div class="category-item p-4 rounded-2xl flex items-center justify-between group">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 text-xs">
-                                    <i class="fas fa-flask"></i>
+                                <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition">
+                                    <a href="/admin/add-category?edit=<?= $cat['id'] ?>" class="text-blue-400 hover:text-white"><i class="fas fa-edit text-xs"></i></a>
+                                    <a href="/admin/category/delete?id=<?= $cat['id'] ?>" onclick="return confirm('Delete this category?')" class="text-red-400 hover:text-white"><i class="fas fa-trash-alt text-xs"></i></a>
                                 </div>
-                                <span class="text-sm font-bold">Science</span>
                             </div>
-                            <button class="text-slate-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition">
-                                <i class="fas fa-trash-alt text-xs"></i>
-                            </button>
-                        </div>
-
-                        <div class="category-item p-4 rounded-2xl flex items-center justify-between group">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 text-xs">
-                                    <i class="fas fa-leaf"></i>
-                                </div>
-                                <span class="text-sm font-bold">Sustainability</span>
-                            </div>
-                            <button class="text-slate-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition">
-                                <i class="fas fa-trash-alt text-xs"></i>
-                            </button>
-                        </div>
-
-                        <div class="category-item p-4 rounded-2xl flex items-center justify-between group">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-xs">
-                                    <i class="fas fa-palette"></i>
-                                </div>
-                                <span class="text-sm font-bold">Design</span>
-                            </div>
-                            <button class="text-slate-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition">
-                                <i class="fas fa-trash-alt text-xs"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="category-item p-4 rounded-2xl flex items-center justify-between group">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400 text-xs">
-                                    <i class="fas fa-heart"></i>
-                                </div>
-                                <span class="text-sm font-bold">Health</span>
-                            </div>
-                            <button class="text-slate-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition">
-                                <i class="fas fa-trash-alt text-xs"></i>
-                            </button>
-                        </div>
+                        <?php endforeach; else: ?>
+                            <p class="text-sm text-slate-400">No categories yet.</p>
+                        <?php endif; ?>
                     </div>
 
-                    <!-- Pagination / Footer -->
-                    <div class="mt-8 pt-8 border-t border-white/5 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-700">
-                            LMHUB // DATA PROTOCOL 2.0
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@
 
         <!-- Form Card -->
         <div class="glass-card p-8 md:p-12">
-            <form action="handle_article.php" method="POST" class="space-y-8">
+            <form action="/author/add-article" method="POST" class="space-y-8">
                 
                 <!-- Title -->
                 <div class="space-y-3">
@@ -30,31 +30,16 @@
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-2">Select Categories</label>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <!-- You will loop through your categories table here -->
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="1" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Technology
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="2" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Science
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="3" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Design
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="4" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Lifestyle
-                            </div>
-                        </label>
+                        
+                        <?php foreach (($categories ?? []) as $c): ?>
+                            <?php $checked = ''; ?>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" name="category_ids[]" value="<?= $c['id'] ?>" class="hidden peer" aria-label="<?= htmlspecialchars($c['name']) ?>">
+                                <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 transition-all peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10">
+                                    <?= htmlspecialchars($c['name']) ?>
+                                </div>
+                            </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -70,7 +55,7 @@
                     <p class="text-[10px] text-slate-500 font-medium max-w-xs italic">
                         By publishing, this article will be linked to your Author Identity and stored in the LMHubDB registry.
                     </p>
-                    <button type="submit" class="btn-gradient px-12 py-5 rounded-2xl text-white font-bold text-xs uppercase tracking-[0.2em] shadow-lg shadow-blue-500/20">
+                        <button type="submit" class="btn-gradient px-12 py-5 rounded-2xl text-white font-bold text-xs uppercase tracking-[0.2em] shadow-lg shadow-blue-500/20">
                         Publish Article
                     </button>
                 </div>

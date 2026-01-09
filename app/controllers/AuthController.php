@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\core\Controller;
-use app\helpers\Validation;
+use app\helpers\Validation ;
 use app\controllers\UserController;
 use app\config\DBConnection;
 use app\enums\Role;
@@ -20,11 +20,21 @@ class AuthController extends Controller
 
     public function loginView()
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!empty($_SESSION['user_id'])) {
+            return $this->redirectByRole($_SESSION['user_role'] ?? null);
+        }
+
         $this->view('auth/login', ['login' => 'Login | LMHub']);
     }
 
     public function registerView()
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!empty($_SESSION['user_id'])) {
+            return $this->redirectByRole($_SESSION['user_role'] ?? null);
+        }
+
         $this->view('auth/register', ['Register' => 'Register | LMHub']);
     }
 

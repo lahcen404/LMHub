@@ -24,7 +24,7 @@
                     <div class="relative mb-8">
                         <div class="w-40 h-40 rounded-[2.5rem] bg-gradient-to-tr from-blue-500 to-purple-500 p-[2px] avatar-glow">
                             <div class="w-full h-full bg-[#020617] rounded-[2.5rem] flex items-center justify-center">
-                                <span class="text-5xl font-bold syne text-white">JV</span>
+                                <img src="https://imgs.search.brave.com/RlqTnd4KpgQOQHFQA2YFeY7Hiwl2t_WncdkC55YKz0c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMTIvQXZh/dGFyLVBORy1JbWFn/ZXMucG5n" alt="User Avatar" class="w-36 h-36 rounded-[2rem] object-cover">
                             </div>
                         </div>
                         <div class="absolute -bottom-2 -right-2 w-10 h-10 badge-verified rounded-full flex items-center justify-center border-4 border-[#020617]">
@@ -32,17 +32,17 @@
                         </div>
                     </div>
 
-                    <h2 class="text-3xl font-bold syne tracking-tight">Julian Vance</h2>
-                    <p class="text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2">Verified System Author</p>
+                    <h2 class="text-3xl font-bold syne tracking-tight"><?= $user['fullName'] ?></h2>
+                    <p class="text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2">Verified User</p>
                     
                     <div class="w-full mt-10 pt-8 border-t border-white/5 space-y-4">
                         <div class="flex justify-between items-center text-sm px-2">
                             <span class="text-slate-500 font-bold uppercase text-[9px] tracking-widest">Articles Published</span>
-                            <span class="text-white font-bold">24</span>
+                            <span class="text-white font-bold">--</span>
                         </div>
                         <div class="flex justify-between items-center text-sm px-2">
                             <span class="text-slate-500 font-bold uppercase text-[9px] tracking-widest">Total Appreciation</span>
-                            <span class="text-white font-bold">1.2k</span>
+                            <span class="text-white font-bold">--</span>
                         </div>
                     </div>
                 </div>
@@ -56,12 +56,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="info-block">
                             <p class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2">Display Name</p>
-                            <p class="text-base font-bold text-white">Julian Vance</p>
+                            <p class="text-base font-bold text-white"><?= $user['fullName'] ?></p>
                         </div>
                         
                         <div class="info-block">
                             <p class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2">Identity Email</p>
-                            <p class="text-base font-bold text-white">julian@lmhub.com</p>
+                            <p class="text-base font-bold text-white"><?= $user['email'] ?></p>
                         </div>
 
                         <div class="info-block md:col-span-2">

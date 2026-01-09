@@ -9,7 +9,6 @@
                     <i class="fas fa-arrow-left mr-1"></i> Return to Dashboard
                 </a>
                 <h1 class="text-4xl font-extrabold syne tracking-tighter">Edit Protocol</h1>
-                <p class="text-slate-500 text-xs font-medium uppercase tracking-widest mt-1">Article ID: <span class="text-blue-500">#ART-2204</span></p>
             </div>
             <div class="w-12 h-12 glass-card flex items-center justify-center">
                 <i class="fas fa-edit text-purple-400"></i>
@@ -18,14 +17,14 @@
 
         <!-- Form Card -->
         <div class="glass-card p-8 md:p-12">
-            <form action="update_article.php" method="POST" class="space-y-8">
-                <!-- Hidden ID field for backend logic -->
-                <input type="hidden" name="article_id" value="2204">
+            <form action="/author/update-article" method="POST" class="space-y-8">
+                <!-- id  -->
+                <input type="hidden" name="article_id" value="<?= htmlspecialchars($article['id'] ?? '') ?>">
                 
                 <!-- Title -->
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-2">Protocol Title</label>
-                    <input type="text" name="title" value="" required
+                    <input type="text" name="title" value="<?= htmlspecialchars($article['title'] ?? '') ?>" required
                         class="input-style w-full px-6 py-5 rounded-2xl text-lg font-bold">
                 </div>
 
@@ -33,30 +32,15 @@
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-2">Assigned Categories</label>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <?php $sel = $selected ?? []; ?>
+                        <?php foreach (($categories ?? []) as $cat): ?>
                         <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="1" class="hidden peer" >
+                            <input type="checkbox" name="category_ids[]" value="<?= $cat['id'] ?>" class="hidden peer" <?= in_array($cat['id'], $sel) ? 'checked' : '' ?>>
                             <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Technology
+                                <?= htmlspecialchars($cat['name']) ?>
                             </div>
                         </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="2" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Science
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="3" class="hidden peer">
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                Design
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="4" class="hidden peer" >
-                            <div class="p-3 text-center rounded-xl border border-white/5 bg-white/5 text-xs font-bold text-slate-500 peer-checked:border-blue-500 peer-checked:text-blue-400 peer-checked:bg-blue-500/10 transition-all">
-                                AI Hub
-                            </div>
-                        </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -64,7 +48,7 @@
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-2">Article Content</label>
                     <textarea name="content" rows="12" required
-                        class="input-style w-full px-6 py-6 rounded-2xl text-sm leading-relaxed resize-none"> </textarea>
+                        class="input-style w-full px-6 py-6 rounded-2xl text-sm leading-relaxed resize-none"><?= htmlspecialchars($article['content'] ?? '') ?></textarea>
                 </div>
 
                 <!-- Action Footer -->
