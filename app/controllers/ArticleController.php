@@ -40,6 +40,12 @@ class ArticleController extends Controller
         ]);
     }
 
+    // get ALl Articles By Id
+
+    public static function getAllArticle (){
+
+    }
+
     // stoore article
     public function storeArticle()
     {
