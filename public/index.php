@@ -50,5 +50,6 @@ $router->post('/author/update-article', 'ArticleController@updateArticle');
 $router->post('/article/comment', 'CommentController@addComment');
 $router->post('/comment/like', 'LikeCommentController@toggle');
 $router->post('/article/like', 'LikeArticleController@toggle');
+$router->post('/report/submit', 'ReportController@submit');
 
 $router->dispatch();
