@@ -9,6 +9,7 @@ use app\config\DBConnection;
 use app\controllers\LikeCommentController;
 use app\controllers\LikeArticleController;
 use Exception;
+use PDO;
 
 
 class ArticleController extends Controller
@@ -40,10 +41,26 @@ class ArticleController extends Controller
         ]);
     }
 
-    // get ALl Articles By Id
+    // get ALll Articles
 
-    public static function getAllArticle (){
+      public static function getAllArticle()
+    {
+        $db = DBConnection::getInstance()->connectDB();
 
+        
+        $sql = "SELECT a.*, u.fullName AS author_name,
+                GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+                FROM articles a
+                LEFT JOIN users u ON a.author_id = u.id
+                LEFT JOIN article_category ac ON a.id = ac.article_id
+                LEFT JOIN categories c ON ac.category_id = c.id
+                GROUP BY a.id
+                ORDER BY a.created_at DESC";
+
+        $stmt = $db->query($sql);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $result ? $result : [];
     }
 
     // stoore article
