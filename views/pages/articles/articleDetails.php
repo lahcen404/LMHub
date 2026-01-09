@@ -125,12 +125,9 @@
                                 </span>
                             </div>
                             
-                            <form action="/comment/report" method="POST">
-                                <input type="hidden" name="comment_id" value="<?= $comment['id'] ?>">
-                                <button type="submit" class="text-[8px] font-black uppercase text-red-500 hover:text-red-400 transition-colors flex items-center gap-1">
-                                    <i class="fas fa-flag"></i> Report
-                                </button>
-                            </form>
+                            <button onclick="openReportModal('comment', <?= $comment['id'] ?>)" class="text-[8px] font-black uppercase text-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5 px-2 py-1 rounded-lg border border-red-500/10 bg-red-500/5">
+                                <i class="fas fa-flag"></i> Report
+                            </button>
                         </div>
 
                         <!-- Comment Content -->
@@ -160,6 +157,60 @@
         </section>
 
     </article>
+
+     <!-- --- REPORT MODAL --- -->
+    <div id="reportModal" class="fixed inset-0 z-[100] hidden items-center justify-center px-6">
+        <div onclick="closeReportModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div class="relative w-full max-w-md glass-card p-8 bg-[#020617] border border-white/10 rounded-[2.5rem] shadow-2xl shadow-red-500/10">
+            <h2 class="text-2xl font-bold text-white syne mb-2">Report Content</h2>
+            <p id="reportContextLabel" class="text-xs text-slate-500 uppercase tracking-widest font-black mb-8">Article Violation Protocol</p>
+
+            <form action="/report/submit" method="POST" class="space-y-6">
+                <input type="hidden" name="article_id" value="<?= $article['id'] ?>">
+                
+                <input type="hidden" name="comment_id" id="modal_comment_id" value="">
+                
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 tracking-widest mb-3">Reason for Reporting</label>
+                    <textarea name="reason" placeholder="Explain why you are reporting this content..." required
+                        class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white focus:outline-none focus:border-red-500/50 resize-none min-h-[120px] transition-all"></textarea>
+                </div>
+
+                <div class="flex gap-4">
+                    <button type="button" onclick="closeReportModal()" class="flex-1 px-6 py-3 rounded-xl border border-white/5 text-slate-400 font-bold text-xs uppercase hover:bg-white/5 transition">Cancel</button>
+                    <button type="submit" class="flex-1 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase transition shadow-lg shadow-red-500/20">Submit Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('reportModal');
+        const commentIdInput = document.getElementById('modal_comment_id');
+        const contextLabel = document.getElementById('reportContextLabel');
+
+        
+        function openReportModal(type, id) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            if (type === 'comment') {
+                commentIdInput.value = id;
+                contextLabel.innerText = "Comment Violation Protocol";
+            } else {
+                commentIdInput.value = "";
+                contextLabel.innerText = "Article Violation Protocol";
+            }
+        }
+
+        function closeReportModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeReportModal(); });
+    </script>
+
 
   
 

@@ -40,6 +40,9 @@ $router->get('/register','AuthController@registerView');
 $router->get('/logout','AuthController@logout');
 $router->get('/admin/category/delete', 'CategoryController@delete');
 
+$router->get('/admin/report/dismiss', "AdminController@dismissReport");
+$router->get('/admin/report/delete-content', "AdminController@deleteReportedContent");
+
 
 $router->post('/login', 'AuthController@Login');
 $router->post('/register', 'AuthController@Register');
@@ -50,5 +53,6 @@ $router->post('/author/update-article', 'ArticleController@updateArticle');
 $router->post('/article/comment', 'CommentController@addComment');
 $router->post('/comment/like', 'LikeCommentController@toggle');
 $router->post('/article/like', 'LikeArticleController@toggle');
+$router->post('/report/submit', 'ReportController@submit');
 
 $router->dispatch();
