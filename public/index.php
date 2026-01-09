@@ -40,6 +40,9 @@ $router->get('/register','AuthController@registerView');
 $router->get('/logout','AuthController@logout');
 $router->get('/admin/category/delete', 'CategoryController@delete');
 
+$router->get('/admin/report/dismiss', "AdminController@dismissReport");
+$router->get('/admin/report/delete-content', "AdminController@deleteReportedContent");
+
 
 $router->post('/login', 'AuthController@Login');
 $router->post('/register', 'AuthController@Register');
